@@ -22,11 +22,7 @@ export const getCurrentTimeUTC = DateTime.now().setZone("utc").startOf("second")
  * @returns "HH:MM" format
  */
 export function formatDateToHoursMinutes(date: string, zone: string): string {
-  const t = DateTime.fromISO(date, { zone });
-
-  const [hours, minutes] = [t.hour.toString().length === 1 ? "0" + t.hour : t.hour, t.minute === 0 ? "00" : t.minute];
-
-  return `${hours}:${minutes}`;
+  return DateTime.fromISO(date, { zone }).toFormat("HH:mm");
 }
 
 /**
@@ -39,18 +35,19 @@ export function getMillisFromISODate(dateISO: string): number {
 
 /**
  *
+ * @param [startingPoint] start point of subtraction; ISO String; defaults to DateTime.now()
+ * @param {string} timeToCalculateTo second substraction part; ISO String
+ * @returns {string} Time format like "MMm SSs"
+ */
+export function formatTimeBetweenTwoDates(end: string, start = DateTime.now().toString()) {
+  return Duration.fromMillis(calculateTimeBetweenTwoDates(end, start)).toFormat("mm'm 'ss's");
+}
+/**
+ *
  * @param startingPoint start point of subtraction; ISO String; defaults to DateTime.now()
  * @param timeToCalculateTo second substraction part; ISO String
- * @returns Time format like "MMm SSs"
+ * @returns Time in milliseconds
  */
-export function calculateTimeBetweenTwoDates({
-  startingPoint = DateTime.now().toString(),
-  timeToCalculateTo,
-}: {
-  startingPoint?: string;
-  timeToCalculateTo: string;
-}) {
-  return Duration.fromMillis(
-    Math.abs(getMillisFromISODate(startingPoint) - getMillisFromISODate(timeToCalculateTo))
-  ).toFormat("mm'm 'ss's");
+export function calculateTimeBetweenTwoDates(end: string, start = DateTime.now().toString()) {
+  return Math.abs(getMillisFromISODate(end) - getMillisFromISODate(start));
 }

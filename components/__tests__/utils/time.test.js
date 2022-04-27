@@ -1,4 +1,4 @@
-import { formatDateToHoursMinutes, calculateTimeBetweenTwoDates } from "../../../utils/time.utils";
+import { formatDateToHoursMinutes, formatTimeBetweenTwoDates } from "../../../utils/time.utils";
 
 import { describe, expect, test } from "@jest/globals";
 
@@ -69,13 +69,7 @@ describe("Calculate Time Between Two Dates", () => {
 
   input.forEach(({ start, end, result }) => {
     test(`Checks if difference between ${start} and ${end} returns ${result}`, () => {
-      //   expect(calculateTimeBetweenTwoDates(start, end)).toEqual(result);
-      expect(
-        calculateTimeBetweenTwoDates({
-          startingPoint: start,
-          timeToCalculateTo: end,
-        })
-      ).toEqual(result);
+      expect(formatTimeBetweenTwoDates(end, start)).toEqual(result);
     });
   });
 });
