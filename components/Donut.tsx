@@ -5,7 +5,6 @@ import React, { useEffect, useRef, useState } from "react";
 import Svg, { G, Circle } from "react-native-svg";
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
-const AnimatedInput = Animated.createAnimatedComponent(TextInput);
 
 export function Donut({
   min = 0,
@@ -17,6 +16,7 @@ export function Donut({
   animationDelay = 0,
   color = "tomato",
   textColor = "#000",
+  displayedText,
 }: iDonut) {
   const uiRadius = radius + strokeWidth;
   const circumference = 2 * Math.PI * radius;
@@ -24,7 +24,6 @@ export function Donut({
   const [isInitialized, setIsInitialized] = useState(false);
 
   const circleRef = useRef();
-  const inputRef = useRef();
   const animatedValue = useRef(new Animated.Value((isInitialized ? value : min) as number)).current;
 
   const animation = (toValue: number) => {
@@ -46,7 +45,6 @@ export function Donut({
 
       // TODO:  remove as any with proper typings
       (circleRef?.current as any).setNativeProps({ strokeDashoffset });
-      (inputRef?.current as any).setNativeProps({ text: `${Math.round(event.value)}` });
     });
 
     return () => {
@@ -80,12 +78,11 @@ export function Donut({
           />
         </G>
       </Svg>
-      <AnimatedInput
-        ref={inputRef}
+      <TextInput
+        value={displayedText}
         underlineColorAndroid="transparent"
         editable={false}
-        defaultValue="0"
-        style={[StyleSheet.absoluteFillObject, { fontSize: radius / 2, color: textColor ?? color }, styles.textValue]}
+        style={[StyleSheet.absoluteFillObject, { fontSize: radius / 3, color: textColor ?? color }, styles.textValue]}
       />
     </View>
   );
@@ -108,4 +105,5 @@ export interface iDonut {
   animationDuration?: number;
   color?: string;
   textColor?: string;
+  displayedText?: string;
 }
