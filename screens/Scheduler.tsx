@@ -1,14 +1,13 @@
 import { StyleSheet } from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { EditScreenInfo, Text, View } from '../components';
 
-export default function TabTwoScreen() {
+export default function Scheduler() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
+      <Text style={styles.title}>Schedule meeting</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
+      <EditScreenInfo path="/screens/Scheduler.tsx" />
     </View>
   );
 }
