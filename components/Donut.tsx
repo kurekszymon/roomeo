@@ -79,7 +79,7 @@ export function Donut({
         </G>
       </Svg>
       <TextInput
-        value={displayedText}
+        value={displayedText ?? value.toString()}
         underlineColorAndroid="transparent"
         editable={false}
         style={[StyleSheet.absoluteFillObject, { fontSize: radius / 3, color: textColor ?? color }, styles.textValue]}
