@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
-import { EditScreenInfo, Text, Timer, View } from '../components';
+import { Text, Timer, View } from '../components';
 import { RootTabScreenProps } from '../types';
 
 export default function Dashboard({ navigation }: RootTabScreenProps<'Dashboard'>) {

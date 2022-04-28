@@ -2,5 +2,6 @@ import { EditScreenInfo } from './EditScreenInfo';
 import { MonoText } from './StyledText';
 import { Text, View } from './Themed';
 import { Timer } from './Timer';
+import { GoogleSignIn } from './GoogleSignIn';
 
-export { EditScreenInfo, MonoText, Text, View, Timer };
+export { GoogleSignIn, EditScreenInfo, MonoText, Text, View, Timer };
