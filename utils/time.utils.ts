@@ -1,18 +1,18 @@
-import { DateTime, Duration } from "luxon";
+import { DateTime, Duration } from 'luxon';
 
 /**
  * @returns 23:59:59 for today's day.
  */
 export const get12pmForCurrentDayUTC = DateTime.now()
-  .setZone("utc") // needed, cause exceeding 24 hours from timezone resulted in errors
-  .endOf("day")
-  .startOf("second")
+  .setZone('utc') // needed, cause exceeding 24 hours from timezone resulted in errors
+  .endOf('day')
+  .startOf('second')
   .toISO({ suppressMilliseconds: true });
 
 /**
  * @returns current time with no miliseconds in format ``
  */
-export const getCurrentTimeUTC = DateTime.now().setZone("utc").startOf("second").toISO({ suppressMilliseconds: true });
+export const getCurrentTimeUTC = DateTime.now().setZone('utc').startOf('second').toISO({ suppressMilliseconds: true });
 
 /**
  *
@@ -22,7 +22,7 @@ export const getCurrentTimeUTC = DateTime.now().setZone("utc").startOf("second")
  * @returns "HH:MM" format
  */
 export function formatDateToHoursMinutes(date: string, zone: string): string {
-  return DateTime.fromISO(date, { zone }).toFormat("HH:mm");
+  return DateTime.fromISO(date, { zone }).toFormat('HH:mm');
 }
 
 /**

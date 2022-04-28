@@ -1,8 +1,8 @@
 // stolen from https://www.youtube.com/watch?v=x2LtzCxbWI0
-import { StyleSheet, View, Animated, TextInput } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import { StyleSheet, View, Animated, TextInput } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
 
-import Svg, { G, Circle } from "react-native-svg";
+import Svg, { G, Circle } from 'react-native-svg';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
@@ -14,8 +14,8 @@ export function Donut({
   strokeWidth = 10,
   animationDuration = 500,
   animationDelay = 0,
-  color = "tomato",
-  textColor = "#000",
+  color = 'tomato',
+  textColor = '#000',
   displayedText,
 }: iDonut) {
   const uiRadius = radius + strokeWidth;
@@ -90,8 +90,8 @@ export function Donut({
 
 const styles = StyleSheet.create({
   textValue: {
-    fontWeight: "700",
-    textAlign: "center",
+    fontWeight: '700',
+    textAlign: 'center',
   },
 });
 

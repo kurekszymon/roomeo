@@ -1,10 +1,10 @@
-import React from "react";
-import { StyleSheet } from "react-native";
+import React from 'react';
+import { StyleSheet } from 'react-native';
 
-import { EditScreenInfo, Text, Timer, View } from "../components";
-import { RootTabScreenProps } from "../types";
+import { EditScreenInfo, Text, Timer, View } from '../components';
+import { RootTabScreenProps } from '../types';
 
-export default function Dashboard({ navigation }: RootTabScreenProps<"Dashboard">) {
+export default function Dashboard({ navigation }: RootTabScreenProps<'Dashboard'>) {
   return (
     <View style={styles.container}>
       <Timer />
@@ -17,16 +17,16 @@ export default function Dashboard({ navigation }: RootTabScreenProps<"Dashboard"
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "space-evenly",
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
   },
   title: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   separator: {
     marginVertical: 30,
     height: 2,
-    width: "80%",
+    width: '80%',
   },
 });
