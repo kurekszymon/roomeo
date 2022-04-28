@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import { SECRET_KEY } from '@env';
 
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -6,6 +6,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
+
+console.log(SECRET_KEY);
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
