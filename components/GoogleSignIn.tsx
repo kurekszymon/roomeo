@@ -36,7 +36,7 @@ export function GoogleSignIn(props: any) {
         style={styles.googleSignIn}
       >
         <TouchableOpacity style={styles.googleSignInLogo}>
-          <Logo style={{ height: 28, width: 28 }} />
+          <Logo style={{ height: 26, width: 26 }} />
         </TouchableOpacity>
         <Text style={styles.googleSignInText}> Sign in with Google</Text>
       </TouchableOpacity>
