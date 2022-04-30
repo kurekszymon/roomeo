@@ -3,6 +3,7 @@ import axios from 'axios';
 import { GOOGLE_API_KEY } from '@env';
 // import { v4 as uuid } from 'uuid';
 import { get12pmForCurrentDayUTC, getCurrentTimeUTC } from '../utils/time.utils';
+import { DateTime } from 'luxon';
 // import { SERVER_URL } from './consts';
 // import { DateTime } from 'luxon';
 
@@ -44,30 +45,16 @@ export async function getEventsFromCalendar(calendarID: string, bearer: string):
 //   return await axios.post(`${BASE_URL}/calendars/${calendarID}/events/watch`, reqBody, axiosOpts);
 // }
 
-// export function mapEvents(events) {
-//   return events.map((event) => {
-//     return {
-//       id: event.id,
-//       summary: event.summary,
-//       startTime: event.start.dateTime,
-//       startTimezone: event.start.timeZone,
-//       endTime: event.end.dateTime,
-//       endTimezone: event.end.timeZone,
-//       hangoutLink: event.hangoutLink,
-//     };
-//   });
-// }
+export function findCurrentEventIndex(events: IEvent[]) {
+  return events.findIndex((event) => {
+    const start = DateTime.fromISO(event.start.dateTime).valueOf();
+    const now = DateTime.now().valueOf();
+    const end = DateTime.fromISO(event.end.dateTime).valueOf();
 
-// export function findCurrentEvent(events) {
-//   return events.find((event) => {
-//     const start = DateTime.fromISO(event.startTime).valueOf();
-//     const now = DateTime.now().valueOf();
-//     const end = DateTime.fromISO(event.endTime).valueOf();
+    if (start <= now && now <= end - 60000) {
+      return event;
+    }
 
-//     if (start <= now && now <= end - 60000) {
-//       return event;
-//     }
-
-//     return;
-//   });
-// }
+    return;
+  });
+}

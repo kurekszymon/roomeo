@@ -1,41 +1,60 @@
 import { DateTime } from 'luxon';
 import React, { useEffect, useState } from 'react';
-import { FlexStyle, StyleProp } from 'react-native';
+import { FlexStyle, StyleProp, StyleSheet } from 'react-native';
 import { calculateTimeBetweenTwoDates } from '../utils/time.utils';
 import { Donut } from './Donut';
-import { View } from './Themed';
+import { Text, View } from './Themed';
 
-const input = {
-  start: '2022-04-27T22:51:07',
-  end: '2022-04-27T22:52:07',
-  result: '25m 07s',
-};
-
-let v = calculateTimeBetweenTwoDates(input.end, input.start);
-export function Timer({ style, size = 100 }: ITimer) {
-  const [value, setValue] = useState(0);
-  const [text, setText] = useState('');
-  // handle value === 0
-
-  const max = calculateTimeBetweenTwoDates(input.end, input.start);
+export function Timer({ style, size = 100, event, strokeWidth = 12.5, textMarginTop = 20 }: ITimer) {
+  const [eventTimeLeft, setEventTimeLeft] = useState(0);
+  const [eventEnds, setEventEnds] = useState(0);
+  const [displayedText, setDisplayedText] = useState('');
 
   useEffect(() => {
-    let interval = setInterval(() => {
-      v -= 1000;
-      setValue(v);
-      setText(DateTime.fromMillis(v).toFormat("mm'm 'ss's"));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+    const { start, end } = event;
 
+    const eventEnds = calculateTimeBetweenTwoDates(end.dateTime, start.dateTime);
+    setEventEnds(eventEnds);
+
+    let interval = setInterval(() => {
+      const eventTimeLeft = calculateTimeBetweenTwoDates(end.dateTime);
+      setEventTimeLeft(eventTimeLeft);
+      setDisplayedText(DateTime.fromMillis(eventTimeLeft).toFormat("mm'm 'ss's"));
+    }, 1000);
+
+    if (eventTimeLeft < 0) {
+      return clearInterval(interval);
+    }
+
+    return () => clearInterval(interval);
+  }, [event]);
+
+  // TODO Handle clearingInterval, handle 0 mintues
   return (
     <View style={style}>
-      <Donut value={value} max={max} radius={size} displayedText={text}></Donut>
+      <Donut
+        value={eventTimeLeft}
+        max={eventEnds}
+        displayedText={displayedText}
+        radius={size}
+        strokeWidth={strokeWidth}
+      ></Donut>
+      <Text style={{ ...styles.text, marginTop: textMarginTop }}>Currently: {event.summary}</Text>
     </View>
   );
 }
 
+const styles = StyleSheet.create({
+  text: {
+    textAlign: 'center',
+    fontSize: 24,
+  },
+});
+
 export interface ITimer {
+  event: IEvent;
   style?: StyleProp<FlexStyle>;
   size?: number;
+  strokeWidth?: number;
+  textMarginTop?: number;
 }
