@@ -51,8 +51,8 @@ describe('Calculate Time Between Two Dates', () => {
       result: '187m 01s',
     },
     {
-      start: '1996-05-03T21:15:00+02:00',
-      end: '1996-05-03T19:15:12+02:00',
+      start: '1996-05-03T19:15:12+02:00',
+      end: '1996-05-03T21:15:00+02:00',
       result: '119m 48s',
     },
     {

@@ -49,5 +49,5 @@ export function formatTimeBetweenTwoDates(end: string, start = DateTime.now().to
  * @returns Time in milliseconds
  */
 export function calculateTimeBetweenTwoDates(end: string, start = DateTime.now().toString()) {
-  return Math.abs(getMillisFromISODate(end) - getMillisFromISODate(start));
+  return getMillisFromISODate(end) - getMillisFromISODate(start);
 }
