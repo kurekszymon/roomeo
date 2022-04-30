@@ -19,6 +19,7 @@ import Scheduler from '../screens/Scheduler';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import { GoogleSignIn } from '../components';
+import CalendarChoice from '../screens/CalendarChoice';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -37,7 +38,6 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
  * https://reactnavigation.org/docs/modal
  */
 const Stack = createNativeStackNavigator<RootStackParamList>();
-
 function RootNavigator() {
   return (
     <Stack.Navigator>
@@ -45,6 +45,9 @@ function RootNavigator() {
         {(props) => <GoogleSignIn {...props} />}
 
         {/* switch to react context */}
+      </Stack.Screen>
+      <Stack.Screen name="CalendarChoice" options={{ title: 'Choose a calendar', headerBackVisible: false }}>
+        {(props) => <CalendarChoice {...props} />}
       </Stack.Screen>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />

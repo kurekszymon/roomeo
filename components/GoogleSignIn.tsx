@@ -1,14 +1,18 @@
 import * as React from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { GOOGLE_EXPO_CLIENT_ID } from '@env';
 import Logo from '../assets/images/googleIcon.svg';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../types';
 WebBrowser.maybeCompleteAuthSession();
+type Props = NativeStackScreenProps<RootStackParamList>;
 
-export function GoogleSignIn(props: any) {
+export function GoogleSignIn({ navigation }: Props) {
   const [request, response, promptAsync] = Google.useAuthRequest({
+    scopes: ['https://www.googleapis.com/auth/calendar'],
     expoClientId: GOOGLE_EXPO_CLIENT_ID,
     // iosClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
     // androidClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
@@ -18,9 +22,9 @@ export function GoogleSignIn(props: any) {
     if (response?.type === 'success') {
       const { authentication } = response;
 
-      // console.log(authentication);
-
-      props.navigation.navigate('Root');
+      navigation.navigate('CalendarChoice', {
+        accessToken: authentication?.accessToken,
+      });
     }
   }, [response]);
 

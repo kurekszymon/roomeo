@@ -1,10 +1,15 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
 import { Text, Timer, View } from '../components';
-import { RootTabScreenProps } from '../types';
+import { RootTabParamList } from '../types';
 
-export default function Dashboard({ navigation }: RootTabScreenProps<'Dashboard'>) {
+type Props = NativeStackScreenProps<RootTabParamList, 'Dashboard'>;
+
+export default function Dashboard({ navigation, route }: Props) {
+  const { chosenCalendar } = route.params;
+
   return (
     <View style={styles.container}>
       <Timer />
