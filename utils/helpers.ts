@@ -1,6 +1,7 @@
-import { Dimensions } from 'react-native';
+import { useWindowDimensions } from 'react-native';
 
 export function isPortrait(): boolean {
-  const dim = Dimensions.get('screen');
-  return dim.height >= dim.width;
+  const { height, width } = useWindowDimensions();
+
+  return height >= width;
 }
