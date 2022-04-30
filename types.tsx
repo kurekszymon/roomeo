@@ -31,7 +31,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 export type RootTabParamList = {
   SignInScreen: undefined;
   Dashboard: {
-    chosenCalendar: string;
+    fetchedEvents: IEvent[];
   };
   Scheduler: undefined;
 };

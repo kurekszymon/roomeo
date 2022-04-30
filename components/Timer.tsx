@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
 import React, { useEffect, useState } from 'react';
+import { FlexStyle, StyleProp } from 'react-native';
 import { calculateTimeBetweenTwoDates } from '../utils/time.utils';
 import { Donut } from './Donut';
 import { View } from './Themed';
@@ -11,7 +12,7 @@ const input = {
 };
 
 let v = calculateTimeBetweenTwoDates(input.end, input.start);
-export function Timer(props: iTimer) {
+export function Timer({ style, size = 100 }: ITimer) {
   const [value, setValue] = useState(0);
   const [text, setText] = useState('');
   // handle value === 0
@@ -28,10 +29,13 @@ export function Timer(props: iTimer) {
   }, []);
 
   return (
-    <View>
-      <Donut value={value} max={max} radius={100} displayedText={text}></Donut>
+    <View style={style}>
+      <Donut value={value} max={max} radius={size} displayedText={text}></Donut>
     </View>
   );
 }
 
-export interface iTimer {}
+export interface ITimer {
+  style?: StyleProp<FlexStyle>;
+  size?: number;
+}

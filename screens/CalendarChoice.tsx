@@ -1,6 +1,6 @@
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { getUserCalendars } from '../utils/google.utils';
+import { getEventsFromCalendar, getUserCalendars } from '../utils/google.utils';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types';
 type Props = NativeStackScreenProps<RootStackParamList, 'CalendarChoice'>;
@@ -8,15 +8,14 @@ type Props = NativeStackScreenProps<RootStackParamList, 'CalendarChoice'>;
 export default function CalendarChoice({ route, navigation }: Props) {
   const { accessToken } = route.params;
 
-  const [userCalendars, setUserCalendars] = useState<CalendarItem[]>([]);
+  const [userCalendars, setUserCalendars] = useState<ICalendarItem[]>([]);
+
   useEffect(() => {
-    getUserCalendars(accessToken as string).then((x) => {
-      setUserCalendars(x);
-    });
+    getUserCalendars(accessToken as string).then(setUserCalendars);
 
     return () => {};
   }, []);
-  //
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -26,14 +25,14 @@ export default function CalendarChoice({ route, navigation }: Props) {
           return (
             <TouchableOpacity
               style={{ margin: 5 }}
-              onPress={() =>
+              onPress={async () => {
                 navigation.navigate('Root', {
                   screen: 'Dashboard',
                   params: {
-                    chosenCalendar: item.id,
+                    fetchedEvents: await getEventsFromCalendar(item.id, accessToken as string),
                   },
-                })
-              }
+                });
+              }}
             >
               <Text style={{ fontSize: 24, color: 'black' }}>{item.summary}</Text>
             </TouchableOpacity>

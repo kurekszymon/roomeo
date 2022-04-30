@@ -20,6 +20,7 @@ import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../typ
 import LinkingConfiguration from './LinkingConfiguration';
 import { GoogleSignIn } from '../components';
 import CalendarChoice from '../screens/CalendarChoice';
+import { isPortrait } from '../utils/helpers';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -109,9 +110,4 @@ function BottomTabNavigator() {
  */
 function TabBarIcon(props: { name: React.ComponentProps<typeof FontAwesome>['name']; color: string }) {
   return <FontAwesome size={isPortrait() ? 30 : 25} {...props} />;
-}
-
-function isPortrait(): boolean {
-  const dim = Dimensions.get('screen');
-  return dim.height >= dim.width;
 }
