@@ -5,12 +5,12 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { GOOGLE_EXPO_CLIENT_ID } from '@env';
 import Logo from '../assets/images/googleIcon.svg';
+
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types';
-WebBrowser.maybeCompleteAuthSession();
-type Props = NativeStackScreenProps<RootStackParamList>;
 
-export function GoogleSignIn({ navigation }: Props) {
+WebBrowser.maybeCompleteAuthSession();
+export function GoogleSignIn({ navigation }: NativeStackScreenProps<RootStackParamList>) {
   const [request, response, promptAsync] = Google.useAuthRequest({
     scopes: ['https://www.googleapis.com/auth/calendar'],
     expoClientId: GOOGLE_EXPO_CLIENT_ID,

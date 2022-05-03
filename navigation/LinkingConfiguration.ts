@@ -20,11 +20,7 @@ const linking: LinkingOptions<RootStackParamList> = {
       },
       Root: {
         screens: {
-          Dashboard: {
-            screens: {
-              DashboardScreen: 'Dashboard',
-            },
-          },
+          Dashboard: 'Dashboard',
           Scheduler: {
             screens: {
               SchedulerScreen: 'Scheduler',

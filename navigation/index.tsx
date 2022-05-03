@@ -21,7 +21,6 @@ import LinkingConfiguration from './LinkingConfiguration';
 import { GoogleSignIn } from '../components';
 import CalendarChoice from '../screens/CalendarChoice';
 import { isPortrait } from '../utils/helpers';
-
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
     <NavigationContainer
@@ -42,14 +41,13 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="SignIn" options={{ title: 'Sign In' }}>
-        {(props) => <GoogleSignIn {...props} />}
+      <Stack.Screen name="SignIn" options={{ title: 'Sign In' }} component={GoogleSignIn} />
 
-        {/* switch to react context */}
-      </Stack.Screen>
-      <Stack.Screen name="CalendarChoice" options={{ title: 'Choose a calendar', headerBackVisible: false }}>
-        {(props) => <CalendarChoice {...props} />}
-      </Stack.Screen>
+      <Stack.Screen
+        name="CalendarChoice"
+        options={{ title: 'Choose a calendar', headerBackVisible: false }}
+        component={CalendarChoice}
+      />
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
