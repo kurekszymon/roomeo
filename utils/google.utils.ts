@@ -52,6 +52,7 @@ export function findCurrentEventIndex(events: IEvent[]) {
     const end = DateTime.fromISO(event.end.dateTime).valueOf();
 
     if (start <= now && now <= end - 60000) {
+      console.log(start <= now && now <= end - 60000);
       return event;
     }
 

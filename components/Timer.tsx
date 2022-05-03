@@ -5,7 +5,7 @@ import { calculateTimeBetweenTwoDates } from '../utils/time.utils';
 import { Donut } from './Donut';
 import { Text, View } from './Themed';
 
-export function Timer({ style, size = 100, event, strokeWidth = 12.5, textMarginTop = 20 }: ITimer) {
+export function Timer({ style, size = 100, event, clearEvent, strokeWidth = 12.5, textMarginTop = 20 }: ITimer) {
   const [eventTimeLeft, setEventTimeLeft] = useState(0);
   const [eventEnds, setEventEnds] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
@@ -16,20 +16,19 @@ export function Timer({ style, size = 100, event, strokeWidth = 12.5, textMargin
     const eventEnds = calculateTimeBetweenTwoDates(end.dateTime, start.dateTime);
     setEventEnds(eventEnds);
 
-    let interval = setInterval(() => {
+    const interval = setInterval(() => {
       const eventTimeLeft = calculateTimeBetweenTwoDates(end.dateTime);
       setEventTimeLeft(eventTimeLeft);
       setDisplayedText(DateTime.fromMillis(eventTimeLeft).toFormat("mm'm 'ss's"));
-    }, 1000);
 
-    if (eventTimeLeft < 0) {
-      return clearInterval(interval);
-    }
+      if (eventTimeLeft < 0) {
+        clearEvent();
+      }
+    }, 1000);
 
     return () => clearInterval(interval);
   }, [event]);
 
-  // TODO Handle clearingInterval, handle 0 mintues
   return (
     <View style={style}>
       <Donut
@@ -53,6 +52,7 @@ const styles = StyleSheet.create({
 
 export interface ITimer {
   event: IEvent;
+  clearEvent: () => void;
   style?: StyleProp<FlexStyle>;
   size?: number;
   strokeWidth?: number;
